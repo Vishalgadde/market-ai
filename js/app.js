@@ -5,15 +5,22 @@ function loadDashboard(){
     const score =
         calculateMarketScore(news);
 
-    const view =
+    const result =
         getMarketDirection(score);
 
-    renderDashboard(
-        news,
+    renderUI(
         score,
-        view
+        result,
+        news
     );
-
 }
 
+document
+.getElementById("refreshBtn")
+.addEventListener(
+    "click",
+    loadDashboard
+);
+
 loadDashboard();
+``
