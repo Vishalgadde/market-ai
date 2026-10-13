@@ -42,3 +42,14 @@ button{
     border-radius:8px;
     cursor:pointer;
 }
+ul{
+    padding-left:20px;
+}
+
+hr{
+    margin:20px 0;
+}
+
+p{
+    margin:10px 0;
+}
