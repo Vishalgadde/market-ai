@@ -1,6 +1,6 @@
 function loadDashboard(){
 
-    let news = getMarketNews();
+    let news = await fetchNews();
 
     news = news.map(item => {
 
