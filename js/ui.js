@@ -118,3 +118,50 @@ score<40?'red':'orange'};
 
 `;
 }
+function renderSummary(news){
+
+    const analysis =
+        analyzeNews(news);
+
+    let message = "";
+
+    if(
+        analysis.bullishCount >
+        analysis.bearishCount
+    ){
+
+        message =
+        "Market sentiment remains positive due to stronger bullish news flow.";
+
+    }
+    else if(
+        analysis.bearishCount >
+        analysis.bullishCount
+    ){
+
+        message =
+        "Market sentiment remains weak due to higher bearish news activity.";
+
+    }
+    else{
+
+        message =
+        "Market remains balanced with mixed market drivers.";
+
+    }
+
+    document.getElementById(
+        "summary"
+    ).innerHTML = `
+
+    <div class="card">
+
+        <h2>🤖 AI Summary</h2>
+
+        <p>${message}</p>
+
+    </div>
+
+    `;
+
+}
