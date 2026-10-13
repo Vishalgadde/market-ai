@@ -1,32 +1,32 @@
 function getMarketNews(){
 
-return [
+    return [
 
-{
-title:"FII buying strengthens equities",
-score:10
-},
+        {
+            title:"FII buying strengthens Indian equities",
+            score:10
+        },
 
-{
-title:"Reliance strong earnings",
-score:8
-},
+        {
+            title:"Reliance reports strong earnings",
+            score:8
+        },
 
-{
-title:"Crude oil declines",
-score:5
-},
+        {
+            title:"Crude oil prices decline",
+            score:5
+        },
 
-{
-title:"Inflation concerns remain",
-score:-6
-},
+        {
+            title:"Inflation concerns remain",
+            score:-6
+        },
 
-{
-title:"Global markets positive",
-score:7
-}
+        {
+            title:"Global markets trade higher",
+            score:7
+        }
 
-];
+    ];
 
 }
