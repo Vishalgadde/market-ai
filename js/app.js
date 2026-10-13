@@ -1,34 +1,49 @@
-function loadDashboard() {
+function loadDashboard(){
 
     let news = getMarketNews();
 
     news = news.map(item => {
 
         return {
+
             ...item,
+
             score: scoreNews(item.title)
+
         };
 
     });
 
-    const marketScore =
+    const score =
         calculateMarketScore(news);
 
     const result =
-        getMarketDirection(marketScore);
+        getMarketDirection(score);
 
     renderUI(
-        marketScore,
+        score,
         result,
         news
     );
+
+    document.getElementById("report").innerHTML = `
+
+    <div class="card">
+
+        <h2>Daily Report</h2>
+
+        <pre>
+${generateReport(result,score)}
+        </pre>
+
+    </div>
+
+    `;
 }
 
 document
 .getElementById("refreshBtn")
-.addEventListener(
-    "click",
-    loadDashboard
-);
+.addEventListener("click",
+loadDashboard);
 
 loadDashboard();
