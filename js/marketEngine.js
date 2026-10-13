@@ -1,33 +1,28 @@
-function calculateMarketScore(news) {
+function calculateMarketScore(news){
 
     let score = 50;
 
     news.forEach(item => {
-
         score += item.score;
-
     });
 
-    if (score > 100) score = 100;
-    if (score < 0) score = 0;
+    score = Math.min(score,100);
+    score = Math.max(score,0);
 
     return score;
 }
 
-function getMarketDirection(score) {
-
-    let bullishProbability = score;
-    let bearishProbability = 100 - score;
+function getMarketDirection(score){
 
     let sentiment = "🟡 NEUTRAL";
     let bias = "WAIT";
 
-    if (score >= 70) {
+    if(score >= 70){
         sentiment = "🟢 BULLISH";
         bias = "LONG";
     }
 
-    if (score <= 30) {
+    if(score <= 30){
         sentiment = "🔴 BEARISH";
         bias = "SHORT";
     }
@@ -36,13 +31,9 @@ function getMarketDirection(score) {
 
         sentiment,
         bias,
-        bullishProbability,
-        bearishProbability,
-        confidence: Math.max(
-            bullishProbability,
-            bearishProbability
-        )
+        confidence: score,
+        bullishProbability: score,
+        bearishProbability: 100-score
 
     };
-
 }
