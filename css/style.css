@@ -1,6 +1,6 @@
 body{
     font-family:Segoe UI,Arial,sans-serif;
-    background:#f5f7fb;
+    background:#f4f7fb;
     margin:0;
     padding:20px;
 }
@@ -8,6 +8,10 @@ body{
 .container{
     max-width:1400px;
     margin:auto;
+}
+
+h1{
+    color:#0d47a1;
 }
 
 .dashboard-grid{
@@ -18,7 +22,7 @@ body{
 }
 
 .card{
-    background:white;
+    background:#fff;
     padding:20px;
     border-radius:12px;
     margin-top:15px;
@@ -28,7 +32,6 @@ body{
 .metric{
     font-size:30px;
     font-weight:bold;
-    margin-top:10px;
 }
 
 button{
@@ -39,4 +42,3 @@ button{
     border-radius:8px;
     cursor:pointer;
 }
-``
