@@ -1,30 +1,29 @@
-function getMarketNews(){
+function getMarketNews() {
 
     return [
 
         {
-            title:"FII buying strengthens Indian equities",
-            score:10
+            title: "FII buying strengthens Indian equities"
         },
 
         {
-            title:"Reliance reports strong earnings",
-            score:8
+            title: "Reliance reports strong quarterly earnings"
         },
 
         {
-            title:"Crude oil prices decline",
-            score:5
+            title: "Crude oil prices decline"
         },
 
         {
-            title:"Inflation concerns remain",
-            score:-6
+            title: "Inflation concerns remain elevated"
         },
 
         {
-            title:"Global markets trade higher",
-            score:7
+            title: "Global markets trade higher"
+        },
+
+        {
+            title: "Strong GDP growth outlook"
         }
 
     ];
