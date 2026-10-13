@@ -34,6 +34,7 @@ async function loadDashboard()
         <h2>Daily Report</h2>
 
         <pre>
+        renderSummary(news);
 ${generateReport(result,score)}
         </pre>
 
