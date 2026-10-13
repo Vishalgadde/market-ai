@@ -1,4 +1,4 @@
-function calculateMarketScore(news){
+function calculateMarketScore(news) {
 
     let score = 50;
 
@@ -8,42 +8,41 @@ function calculateMarketScore(news){
 
     });
 
-    if(score > 100){
-        score = 100;
-    }
-
-    if(score < 0){
-        score = 0;
-    }
+    if (score > 100) score = 100;
+    if (score < 0) score = 0;
 
     return score;
 }
 
-function getMarketDirection(score){
+function getMarketDirection(score) {
 
-    if(score >= 70){
+    let bullishProbability = score;
+    let bearishProbability = 100 - score;
 
-        return {
-            sentiment:"🟢 BULLISH",
-            bias:"LONG",
-            confidence:score
-        };
+    let sentiment = "🟡 NEUTRAL";
+    let bias = "WAIT";
 
+    if (score >= 70) {
+        sentiment = "🟢 BULLISH";
+        bias = "LONG";
     }
 
-    if(score <= 30){
-
-        return {
-            sentiment:"🔴 BEARISH",
-            bias:"SHORT",
-            confidence:100-score
-        };
-
+    if (score <= 30) {
+        sentiment = "🔴 BEARISH";
+        bias = "SHORT";
     }
 
     return {
-        sentiment:"🟡 NEUTRAL",
-        bias:"WAIT",
-        confidence:55
+
+        sentiment,
+        bias,
+        bullishProbability,
+        bearishProbability,
+        confidence: Math.max(
+            bullishProbability,
+            bearishProbability
+        )
+
     };
+
 }
