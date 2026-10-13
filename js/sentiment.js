@@ -19,22 +19,26 @@ const bearishKeywords = [
     "negative"
 ];
 
-function scoreNews(title) {
+function scoreNews(title){
 
     title = title.toLowerCase();
 
     let score = 0;
 
     bullishKeywords.forEach(word => {
-        if (title.includes(word)) {
+
+        if(title.includes(word)){
             score += 10;
         }
+
     });
 
     bearishKeywords.forEach(word => {
-        if (title.includes(word)) {
+
+        if(title.includes(word)){
             score -= 10;
         }
+
     });
 
     return score;
