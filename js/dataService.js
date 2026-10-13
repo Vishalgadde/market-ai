@@ -12,7 +12,10 @@ function getMarketData(){
 
         usdInr:83.15,
 
-        crude:72.40
+        crude:72.4,
+
+        gold:98750
 
     };
+
 }
