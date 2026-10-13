@@ -1,23 +1,78 @@
-function generateReport(result, score, news){
+function generateReport(
+    result,
+    score,
+    news
+) {
 
     const analysis =
         analyzeNews(news);
 
+    let outlook =
+        "SIDEWAYS";
+
+    if(score >= 80){
+        outlook =
+        "STRONG BULLISH";
+    }
+    else if(score >= 65){
+        outlook =
+        "BULLISH";
+    }
+    else if(score <= 30){
+        outlook =
+        "BEARISH";
+    }
+
     return `
 
-Market AI Report
+MARKET AI DAILY REPORT
 
-Market Score : ${score}
+===================================
 
-Sentiment : ${result.sentiment}
+Market Score:
+${score}
 
-Bias : ${result.bias}
+Sentiment:
+${result.sentiment}
 
-Confidence : ${result.confidence}%
+Bias:
+${result.bias}
 
-Bullish News : ${analysis.bullishCount}
+Confidence:
+${result.confidence}%
 
-Bearish News : ${analysis.bearishCount}
+Bullish News:
+${analysis.bullishCount}
+
+Bearish News:
+${analysis.bearishCount}
+
+Neutral News:
+${analysis.neutralCount}
+
+Market Outlook:
+${outlook}
+
+===================================
+
+Top Positive Drivers
+
+${analysis.bullish
+.map(x => "- " + x.title)
+.join("\n")}
+
+===================================
+
+Top Risks
+
+${analysis.bearish
+.map(x => "- " + x.title)
+.join("\n")}
+
+===================================
+
+Generated:
+${new Date().toLocaleString()}
 
 `;
 

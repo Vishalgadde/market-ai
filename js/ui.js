@@ -1,8 +1,52 @@
-function renderUI(score,result,news){
+function renderUI(
+    score,
+    result,
+    news,
+    market
+){
 
-    const market = getMarketData();
+    const analysis =
+        analyzeNews(news);
 
-    document.getElementById("dashboard").innerHTML = `
+    const riskScore =
+        Math.min(
+            analysis.bearishCount * 10,
+            100
+        );
+
+    document.getElementById(
+        "dashboard"
+    ).innerHTML = `
+
+    <div class="card">
+
+        <h2>🤖 AI Market Summary</h2>
+
+        <p>
+
+        Market sentiment is currently
+
+        <b>${result.sentiment}</b>
+
+        with confidence
+
+        <b>${result.confidence}%</b>.
+
+        </p>
+
+        <p>
+
+        Bullish Headlines:
+        <b>${analysis.bullishCount}</b>
+
+        |
+
+        Bearish Headlines:
+        <b>${analysis.bearishCount}</b>
+
+        </p>
+
+    </div>
 
     <div class="dashboard-grid">
 
@@ -12,8 +56,8 @@ function renderUI(score,result,news){
         </div>
 
         <div class="card">
-            <h3>Sentiment</h3>
-            <div class="metric">${result.sentiment}</div>
+            <h3>Risk Score</h3>
+            <div class="metric">${riskScore}%</div>
         </div>
 
         <div class="card">
@@ -30,135 +74,151 @@ function renderUI(score,result,news){
             <h3>NIFTY</h3>
             <div class="metric">${market.nifty}</div>
         </div>
-        <div class="card">
-    <h3>BANK NIFTY</h3>
-    <div class="metric">${market.bankNifty}</div>
-</div>
 
-<div class="card">
-    <h3>VIX</h3>
-    <div class="metric">${market.vix}</div>
-</div>
-
-<div class="card">
-    <h3>USD/INR</h3>
-    <div class="metric">${market.usdInr}</div>
-</div>
-
-<div class="card">
-    <h3>GOLD</h3>
-    <div class="metric">${market.gold}</div>
-</div>
         <div class="card">
             <h3>SENSEX</h3>
             <div class="metric">${market.sensex}</div>
         </div>
 
-    </div>
-    `;
+        <div class="card">
+            <h3>BANK NIFTY</h3>
+            <div class="metric">${market.bankNifty}</div>
+        </div>
 
-    document.getElementById("reasons").innerHTML = `
+        <div class="card">
+            <h3>VIX</h3>
+            <div class="metric">${market.vix}</div>
+        </div>
 
-    <div class="card">
+        <div class="card">
+            <h3>USD / INR</h3>
+            <div class="metric">${market.usdInr}</div>
+        </div>
 
-        <h2>Why Bullish?</h2>
-
-        <ul>
-
-        ${
-            news
-            .filter(x => x.score > 0)
-            .map(x => `<li>${x.title}</li>`)
-            .join("")
-        }
-
-        </ul>
-
-    </div>
-    `;
-
-    document.getElementById("news").innerHTML = `
-
-    <div class="card">
-
-        <h2>News Analysis</h2>
-
-        ${
-            news.map(item =>
-            `<p>${item.title} (${item.score})</p>`).join("")
-        }
+        <div class="card">
+            <h3>GOLD</h3>
+            <div class="metric">${market.gold}</div>
+        </div>
 
     </div>
+
     `;
-    document.getElementById("meter").innerHTML = `
-
-<div class="card">
-
-<h2>Market Strength</h2>
-
-<div style="
-width:100%;
-height:30px;
-background:#ddd;
-border-radius:20px;
-overflow:hidden;
-">
-
-<div style="
-width:${score}%;
-height:100%;
-background:${score>60?'green':
-score<40?'red':'orange'};
-">
-</div>
-
-</div>
-
-</div>
-
-`;
-}
-function renderSummary(news){
-
-    const analysis =
-        analyzeNews(news);
-
-    let message = "";
-
-    if(
-        analysis.bullishCount >
-        analysis.bearishCount
-    ){
-
-        message =
-        "Market sentiment remains positive due to stronger bullish news flow.";
-
-    }
-    else if(
-        analysis.bearishCount >
-        analysis.bullishCount
-    ){
-
-        message =
-        "Market sentiment remains weak due to higher bearish news activity.";
-
-    }
-    else{
-
-        message =
-        "Market remains balanced with mixed market drivers.";
-
-    }
 
     document.getElementById(
-        "summary"
+        "meter"
     ).innerHTML = `
 
     <div class="card">
 
-        <h2>🤖 AI Summary</h2>
+        <h2>📊 Market Strength</h2>
 
-        <p>${message}</p>
+        <div style="
+        width:100%;
+        height:30px;
+        background:#ddd;
+        border-radius:20px;
+        overflow:hidden;
+        ">
+
+            <div style="
+            width:${score}%;
+            height:100%;
+            background:
+            ${
+                score >= 60
+                ? 'green'
+                : score <= 40
+                ? 'red'
+                : 'orange'
+            };
+            ">
+            </div>
+
+        </div>
+
+    </div>
+
+    `;
+
+    document.getElementById(
+        "reasons"
+    ).innerHTML = `
+
+    <div class="dashboard-grid">
+
+        <div class="card">
+
+            <h2>✅ Top Drivers</h2>
+
+            <ul>
+
+            ${
+                analysis.bullish
+                .map(
+                    item =>
+                    `<li>${item.title} (+${item.score})</li>`
+                )
+                .join("")
+            }
+
+            </ul>
+
+        </div>
+
+        <div class="card">
+
+            <h2>⚠ Top Risks</h2>
+
+            <ul>
+
+            ${
+                analysis.bearish
+                .map(
+                    item =>
+                    `<li>${item.title} (${item.score})</li>`
+                )
+                .join("")
+            }
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    `;
+
+    document.getElementById(
+        "news"
+    ).innerHTML = `
+
+    <div class="card">
+
+        <h2>📰 News Impact Ranking</h2>
+
+        ${
+            [...news]
+            .sort(
+                (a,b) =>
+                Math.abs(b.score) -
+                Math.abs(a.score)
+            )
+            .map(item => `
+
+                <div class="news-item">
+
+                    ${item.title}
+
+                    <b>
+                    (${item.score > 0 ? '+' : ''}
+                    ${item.score})
+                    </b>
+
+                </div>
+
+            `)
+            .join("")
+        }
 
     </div>
 

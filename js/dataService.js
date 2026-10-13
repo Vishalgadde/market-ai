@@ -1,53 +1,49 @@
-const API_KEY = "RQDODN433YV2OA79";
+const API_KEY = "YOUR_ALPHA_VANTAGE_KEY";
 
 async function getMarketData() {
 
     const marketData = {
-        nifty: "Loading...",
-        sensex: "Loading...",
-        bankNifty: "Loading...",
-        vix: "Loading...",
+
+        nifty: 24850,
+        sensex: 81300,
+        bankNifty: 56200,
+        vix: 13.5,
         usdInr: "Loading...",
-        crude: "Loading...",
-        gold: "Loading..."
+        gold: 98750,
+        crude: 72.4
+
     };
 
     try {
 
-        const usdResponse =
+        const response =
             await fetch(
                 `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=INR&apikey=${API_KEY}`
             );
 
-        const usdData =
-            await usdResponse.json();
+        const data =
+            await response.json();
 
-        marketData.usdInr =
-            usdData["Realtime Currency Exchange Rate"]?.["5. Exchange Rate"] || "N/A";
+        const rate =
+            data?.["Realtime Currency Exchange Rate"]?.["5. Exchange Rate"];
 
-    }
-    catch (error) {
-        console.log("USDINR Error", error);
-    }
+        if(rate){
 
-    try {
+            marketData.usdInr =
+                Number(rate).toFixed(2);
 
-        const goldResponse =
-            await fetch(
-                `https://www.alphavantage.co/query?function=WTI&interval=monthly&apikey=${API_KEY}`
-            );
-
-        const goldData =
-            await goldResponse.json();
-
-        marketData.crude = "LIVE";
-
-        console.log(goldData);
+        }
 
     }
-    catch (error) {
-        console.log(error);
+    catch(error){
+
+        console.error(
+            "USDINR fetch failed",
+            error
+        );
+
     }
 
     return marketData;
+
 }
