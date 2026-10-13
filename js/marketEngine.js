@@ -1,15 +1,20 @@
-function calculateMarketScore(newsItems){
+function calculateMarketScore(news){
 
     let score = 50;
 
-    newsItems.forEach(item => {
+    news.forEach(item => {
 
         score += item.score;
 
     });
 
-    score = Math.max(0, score);
-    score = Math.min(100, score);
+    if(score > 100){
+        score = 100;
+    }
+
+    if(score < 0){
+        score = 0;
+    }
 
     return score;
 }
@@ -37,11 +42,8 @@ function getMarketDirection(score){
     }
 
     return {
-
         sentiment:"🟡 NEUTRAL",
         bias:"WAIT",
         confidence:55
-
     };
-
 }
