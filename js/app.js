@@ -1,15 +1,24 @@
-function loadDashboard(){
+function loadDashboard() {
 
-    const news = getMarketNews();
+    let news = getMarketNews();
 
-    const score =
+    news = news.map(item => {
+
+        return {
+            ...item,
+            score: scoreNews(item.title)
+        };
+
+    });
+
+    const marketScore =
         calculateMarketScore(news);
 
     const result =
-        getMarketDirection(score);
+        getMarketDirection(marketScore);
 
     renderUI(
-        score,
+        marketScore,
         result,
         news
     );
