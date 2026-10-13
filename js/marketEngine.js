@@ -33,7 +33,7 @@ function getMarketDirection(score){
         bias,
         confidence: score,
         bullishProbability: score,
-        bearishProbability: 100-score
+        bearishProbability: 100 - score
 
     };
 }

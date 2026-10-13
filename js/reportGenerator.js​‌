@@ -1,0 +1,62 @@
+function generateReport(
+    result,
+    score
+){
+
+    let outlook =
+        "SIDEWAYS";
+
+    if(score >= 80){
+
+        outlook =
+        "STRONG BULLISH";
+
+    }
+    else if(score >= 65){
+
+        outlook =
+        "BULLISH";
+
+    }
+    else if(score <= 30){
+
+        outlook =
+        "BEARISH";
+
+    }
+
+    return `
+
+MARKET AI DAILY REPORT
+
+=================================
+
+Market Score:
+${score}
+
+Sentiment:
+${result.sentiment}
+
+Bias:
+${result.bias}
+
+Confidence:
+${result.confidence}%
+
+Bullish Probability:
+${result.bullishProbability}%
+
+Bearish Probability:
+${result.bearishProbability}%
+
+Nifty Outlook:
+${outlook}
+
+Generated:
+${new Date().toLocaleString()}
+
+=================================
+
+`;
+
+}

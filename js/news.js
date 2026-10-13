@@ -1,4 +1,4 @@
-function getMarketNews() {
+function getMarketNews(){
 
     return [
 
@@ -27,4 +27,5 @@ function getMarketNews() {
         }
 
     ];
+
 }
