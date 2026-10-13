@@ -1,4 +1,5 @@
-function loadDashboard(){
+async function loadDashboard()
+{
 
     let news = await fetchNews();
 
