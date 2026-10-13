@@ -90,4 +90,31 @@ function renderUI(score,result,news){
 
     </div>
     `;
+    document.getElementById("meter").innerHTML = `
+
+<div class="card">
+
+<h2>Market Strength</h2>
+
+<div style="
+width:100%;
+height:30px;
+background:#ddd;
+border-radius:20px;
+overflow:hidden;
+">
+
+<div style="
+width:${score}%;
+height:100%;
+background:${score>60?'green':
+score<40?'red':'orange'};
+">
+</div>
+
+</div>
+
+</div>
+
+`;
 }
