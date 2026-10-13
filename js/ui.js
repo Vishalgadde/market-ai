@@ -34,12 +34,12 @@ function renderUI(score,result,news){
         <h2>Why Bullish?</h2>
 
         <ul>
-        ${
-            news
-            .filter(x=>x.score>0)
-            .map(x=>`<li>${x.title}</li>`)
-            .join("")
-        }
+            ${
+                news
+                .filter(x => x.score > 0)
+                .map(x => `<li>${x.title}</li>`)
+                .join("")
+            }
         </ul>
 
         <hr>
@@ -47,16 +47,15 @@ function renderUI(score,result,news){
         <h2>Why Bearish?</h2>
 
         <ul>
-        ${
-            news
-            .filter(x=>x.score<0)
-            .map(x=>`<li>${x.title}</li>`)
-            .join("")
-        }
+            ${
+                news
+                .filter(x => x.score < 0)
+                .map(x => `<li>${x.title}</li>`)
+                .join("")
+            }
         </ul>
 
     </div>
-
     `;
 
     document.getElementById("news").innerHTML = `
@@ -66,12 +65,11 @@ function renderUI(score,result,news){
         <h2>Market News</h2>
 
         ${
-            news.map(n=>`
-                <p>${n.title}</p>
-            `).join("")
+            news
+            .map(item => `<p>${item.title}</p>`)
+            .join("")
         }
 
     </div>
-
     `;
 }
