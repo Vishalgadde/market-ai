@@ -30,7 +30,25 @@ function renderUI(score,result,news){
             <h3>NIFTY</h3>
             <div class="metric">${market.nifty}</div>
         </div>
+        <div class="card">
+    <h3>BANK NIFTY</h3>
+    <div class="metric">${market.bankNifty}</div>
+</div>
 
+<div class="card">
+    <h3>VIX</h3>
+    <div class="metric">${market.vix}</div>
+</div>
+
+<div class="card">
+    <h3>USD/INR</h3>
+    <div class="metric">${market.usdInr}</div>
+</div>
+
+<div class="card">
+    <h3>GOLD</h3>
+    <div class="metric">${market.gold}</div>
+</div>
         <div class="card">
             <h3>SENSEX</h3>
             <div class="metric">${market.sensex}</div>
