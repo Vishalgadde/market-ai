@@ -1,16 +1,6 @@
-function renderUI(score, result, news) {
+function renderUI(score,result,news){
 
-    const bullishReasons =
-        news
-        .filter(n => n.score > 0)
-        .map(n => `<li>${n.title}</li>`)
-        .join("");
-
-    const bearishReasons =
-        news
-        .filter(n => n.score < 0)
-        .map(n => `<li>${n.title}</li>`)
-        .join("");
+    const market = getMarketData();
 
     document.getElementById("dashboard").innerHTML = `
 
@@ -33,23 +23,17 @@ function renderUI(score, result, news) {
 
         <div class="card">
             <h3>Confidence</h3>
-            <div class="metric">
-                ${result.confidence}%
-            </div>
+            <div class="metric">${result.confidence}%</div>
         </div>
 
         <div class="card">
-            <h3>Bullish Probability</h3>
-            <div class="metric">
-                ${result.bullishProbability}%
-            </div>
+            <h3>NIFTY</h3>
+            <div class="metric">${market.nifty}</div>
         </div>
 
         <div class="card">
-            <h3>Bearish Probability</h3>
-            <div class="metric">
-                ${result.bearishProbability}%
-            </div>
+            <h3>SENSEX</h3>
+            <div class="metric">${market.sensex}</div>
         </div>
 
     </div>
@@ -59,40 +43,33 @@ function renderUI(score, result, news) {
 
     <div class="card">
 
-        <h2>✅ Why Bullish?</h2>
+        <h2>Why Bullish?</h2>
 
         <ul>
-            ${bullishReasons}
-        </ul>
 
-        <hr>
+        ${
+            news
+            .filter(x => x.score > 0)
+            .map(x => `<li>${x.title}</li>`)
+            .join("")
+        }
 
-        <h2>⚠ Why Bearish?</h2>
-
-        <ul>
-            ${bearishReasons}
         </ul>
 
     </div>
-
     `;
 
     document.getElementById("news").innerHTML = `
 
     <div class="card">
 
-        <h2>📰 Market News</h2>
+        <h2>News Analysis</h2>
 
         ${
-            news.map(item => `
-            <p>
-                ${item.title}
-                <b> (${item.score}) </b>
-            </p>
-            `).join("")
+            news.map(item =>
+            `<p>${item.title} (${item.score})</p>`).join("")
         }
 
     </div>
-
     `;
 }
