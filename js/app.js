@@ -1,90 +1,72 @@
-console.log("MARKET AI V7");
+function showIntelligence() {
 
-async function loadDashboard() {
+    renderMarketIntelligence();
 
-    let news =
-        await fetchMarketNews();
+}
 
-    news = news.map(item => {
+function showCrashMonitor() {
 
-        return {
+    renderCrashMonitor();
 
-            ...item,
+}
 
-            score:
-            scoreNews(
-                item.title
-            )
+function showRiskCalculator() {
 
-        };
+    renderRiskCalculator();
 
-    });
+}
 
-    const score =
-        calculateMarketScore(
-            news
+function calculateRisk() {
+
+    const capital =
+        Number(
+            document.getElementById("capital").value
         );
 
-    const result =
-        getMarketDirection(
-            score
+    const riskPercent =
+        Number(
+            document.getElementById("riskPercent").value
         );
 
-    const marketData =
-        await getMarketData();
+    const riskAmount =
+        capital * (riskPercent / 100);
 
-    renderUI(
-        score,
-        result,
-        news,
-        marketData
-    );
+    const target =
+        riskAmount * 3;
 
     document.getElementById(
-        "report"
+        "riskResult"
     ).innerHTML = `
 
     <div class="card">
 
-        <h2>
-        📋 Daily Market Report
-        </h2>
+        <h3>Result</h3>
 
-        <pre>
+        <p>
+        Risk Amount:
+        ₹${riskAmount.toFixed(2)}
+        </p>
 
-${generateReport(
-    result,
-    score,
-    news
-)}
+        <p>
+        Suggested Target:
+        ₹${target.toFixed(2)}
+        </p>
 
-        </pre>
+        <p>
+        Risk Reward:
+        1 : 3
+        </p>
 
     </div>
 
     `;
-
 }
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        document
-            .getElementById(
-                "refreshBtn"
-            )
-            .addEventListener(
-                "click",
-                loadDashboard
-            );
-
-        loadDashboard();
-
-        setInterval(
-            loadDashboard,
-            300000
-        );
+        showIntelligence();
 
     }
 );

@@ -1,227 +1,143 @@
-function renderUI(
-    score,
-    result,
-    news,
-    market
-){
+function renderMarketIntelligence() {
 
-    const analysis =
-        analyzeNews(news);
-
-    const riskScore =
-        Math.min(
-            analysis.bearishCount * 10,
-            100
-        );
-
-    document.getElementById(
-        "dashboard"
-    ).innerHTML = `
+    const html = `
 
     <div class="card">
 
-        <h2>🤖 AI Market Summary</h2>
+        <h2>📢 Market Intelligence</h2>
 
-        <p>
+        <div class="grid">
 
-        Market sentiment is currently
+            <div class="card">
 
-        <b>${result.sentiment}</b>
+                <h3>Market Sentiment</h3>
 
-        with confidence
+                <div class="metric">
+                    BULLISH
+                </div>
 
-        <b>${result.confidence}%</b>.
+            </div>
 
-        </p>
+            <div class="card">
 
-        <p>
+                <h3>Confidence</h3>
 
-        Bullish Headlines:
-        <b>${analysis.bullishCount}</b>
+                <div class="metric">
+                    82%
+                </div>
 
-        |
+            </div>
 
-        Bearish Headlines:
-        <b>${analysis.bearishCount}</b>
+            <div class="card">
 
-        </p>
+                <h3>Expected Move</h3>
 
-    </div>
+                <div class="metric">
+                    +120 to +180
+                </div>
 
-    <div class="dashboard-grid">
-
-        <div class="card">
-            <h3>Market Score</h3>
-            <div class="metric">${score}</div>
-        </div>
-
-        <div class="card">
-            <h3>Risk Score</h3>
-            <div class="metric">${riskScore}%</div>
-        </div>
-
-        <div class="card">
-            <h3>Bias</h3>
-            <div class="metric">${result.bias}</div>
-        </div>
-
-        <div class="card">
-            <h3>Confidence</h3>
-            <div class="metric">${result.confidence}%</div>
-        </div>
-
-        <div class="card">
-            <h3>NIFTY</h3>
-            <div class="metric">${market.nifty}</div>
-        </div>
-
-        <div class="card">
-            <h3>SENSEX</h3>
-            <div class="metric">${market.sensex}</div>
-        </div>
-
-        <div class="card">
-            <h3>BANK NIFTY</h3>
-            <div class="metric">${market.bankNifty}</div>
-        </div>
-
-        <div class="card">
-            <h3>VIX</h3>
-            <div class="metric">${market.vix}</div>
-        </div>
-
-        <div class="card">
-            <h3>USD / INR</h3>
-            <div class="metric">${market.usdInr}</div>
-        </div>
-
-        <div class="card">
-            <h3>GOLD</h3>
-            <div class="metric">${market.gold}</div>
-        </div>
-
-    </div>
-
-    `;
-
-    document.getElementById(
-        "meter"
-    ).innerHTML = `
-
-    <div class="card">
-
-        <h2>📊 Market Strength</h2>
-
-        <div style="
-        width:100%;
-        height:30px;
-        background:#ddd;
-        border-radius:20px;
-        overflow:hidden;
-        ">
-
-            <div style="
-            width:${score}%;
-            height:100%;
-            background:
-            ${
-                score >= 60
-                ? 'green'
-                : score <= 40
-                ? 'red'
-                : 'orange'
-            };
-            ">
             </div>
 
         </div>
 
-    </div>
+        <h3>Top Drivers</h3>
 
-    `;
+        <ul>
 
-    document.getElementById(
-        "reasons"
-    ).innerHTML = `
+            <li>Positive Global Markets</li>
+            <li>Strong Earnings</li>
+            <li>Institutional Buying</li>
 
-    <div class="dashboard-grid">
+        </ul>
 
-        <div class="card">
+        <h3>Top Risks</h3>
 
-            <h2>✅ Top Drivers</h2>
+        <ul>
 
-            <ul>
+            <li>Inflation Concerns</li>
+            <li>Crude Oil Volatility</li>
 
-            ${
-                analysis.bullish
-                .map(
-                    item =>
-                    `<li>${item.title} (+${item.score})</li>`
-                )
-                .join("")
-            }
-
-            </ul>
-
-        </div>
-
-        <div class="card">
-
-            <h2>⚠ Top Risks</h2>
-
-            <ul>
-
-            ${
-                analysis.bearish
-                .map(
-                    item =>
-                    `<li>${item.title} (${item.score})</li>`
-                )
-                .join("")
-            }
-
-            </ul>
-
-        </div>
+        </ul>
 
     </div>
 
     `;
 
-    document.getElementById(
-        "news"
-    ).innerHTML = `
+    document.getElementById("content").innerHTML =
+        html;
+}
+
+function renderCrashMonitor() {
+
+    const html = `
 
     <div class="card">
 
-        <h2>📰 News Impact Ranking</h2>
+        <h2>🚨 Crash Monitor</h2>
 
-        ${
-            [...news]
-            .sort(
-                (a,b) =>
-                Math.abs(b.score) -
-                Math.abs(a.score)
-            )
-            .map(item => `
+        <div class="metric">
+            18%
+        </div>
 
-                <div class="news-item">
+        <p>
 
-                    ${item.title}
+            Current Crash Probability:
+            LOW
 
-                    <b>
-                    (${item.score > 0 ? '+' : ''}
-                    ${item.score})
-                    </b>
+        </p>
 
-                </div>
+        <h3>Risk Factors</h3>
 
-            `)
-            .join("")
-        }
+        <ul>
+
+            <li>No major global weakness</li>
+            <li>Moderate inflation concerns</li>
+            <li>No unusual panic signals</li>
+
+        </ul>
 
     </div>
 
     `;
 
+    document.getElementById("content").innerHTML =
+        html;
+}
+
+function renderRiskCalculator() {
+
+    const html = `
+
+    <div class="card">
+
+        <h2>📊 Risk Reward Calculator</h2>
+
+        <div class="input-group">
+
+            <label>Capital</label>
+
+            <input id="capital" type="number">
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Risk %</label>
+
+            <input id="riskPercent" type="number" value="2">
+
+        </div>
+
+        <button onclick="calculateRisk()">
+            Calculate
+        </button>
+
+        <div id="riskResult"></div>
+
+    </div>
+
+    `;
+
+    document.getElementById("content").innerHTML =
+        html;
 }
